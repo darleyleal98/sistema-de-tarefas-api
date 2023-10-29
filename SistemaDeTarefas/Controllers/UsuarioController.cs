@@ -14,7 +14,6 @@ namespace SistemaTarefas.Controllers
         {
             _usuarioRepositorio = usuarioRepositorio;
         }
-
         [HttpGet]
         public async Task<ActionResult<List<UsuarioModel>>> BuscarTodosUsuarios() 
         {

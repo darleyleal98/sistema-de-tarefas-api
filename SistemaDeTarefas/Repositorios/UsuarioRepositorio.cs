@@ -1,4 +1,6 @@
-﻿using SistemaDeTarefas.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SistemaDeTarefas.Data;
+using SistemaDeTarefas.Models;
 using SistemaDeTarefas.Repositorios.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,28 +9,58 @@ namespace SistemaDeTarefas.Repositorios
 {
     public class UsuarioRepositorio : IUsuarioRepositorio
     {
-        public Task<UsuarioModel> BuscarPorId(int Id)
+        private readonly SistemaDeTarefasDBContext _dbContext;
+        public UsuarioRepositorio(SistemaDeTarefasDBContext sistemaDeTarefasDBContext)
         {
-            throw new NotImplementedException();
+            _dbContext = sistemaDeTarefasDBContext;
         }
 
-        public Task<List<UsuarioModel>> BuscarTodosOsUsuarios()
+        public async Task<UsuarioModel> BuscarPorId(int id)
         {
-            throw new NotImplementedException();
-        }
-        public Task<UsuarioModel> AdicionarUsuario(UsuarioModel usuario)
-        {
-            throw new NotImplementedException();
+            return await _dbContext.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<bool> Apagar(int id)
+        public async Task<List<UsuarioModel>> BuscarTodosOsUsuarios()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Usuarios.ToListAsync();
         }
 
-        public Task<UsuarioModel> Atualizar(UsuarioModel usuario, int id)
+        public async Task<UsuarioModel> AdicionarUsuario(UsuarioModel usuario)
         {
-            throw new NotImplementedException();
+            await _dbContext.Usuarios.AddAsync(usuario);
+            await _dbContext.SaveChangesAsync();
+
+            return usuario;
+        }
+
+        public async Task<UsuarioModel> Atualizar(UsuarioModel usuario, int id)
+        {
+            UsuarioModel usuarioPorId = await BuscarPorId(id);
+
+            if (usuarioPorId == null)
+            {
+                throw new ApplicationException($"Usuário para o Id: {id} não foi encontrado!");
+            }
+            usuarioPorId.Nome = usuario.Nome;
+            usuarioPorId.Email = usuario.Email;
+
+            _dbContext.Update(usuarioPorId);
+            await _dbContext.SaveChangesAsync();
+
+            return usuarioPorId;
+        }
+        public async Task<bool> Apagar(int id)
+        {
+            UsuarioModel usuarioPorId = await BuscarPorId(id);
+
+            if (usuarioPorId == null)
+            {
+                throw new ApplicationException($"Usuário para o Id: {id} não foi encontrado!");
+            }
+
+            _dbContext.Usuarios.Remove(usuarioPorId);
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
     }
 }

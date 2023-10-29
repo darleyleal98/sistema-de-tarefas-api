@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SistemaDeTarefas.Models;
+using SistemaTarefas.Models;
 
-namespace SistemaDeTarefas.Data.Map
+namespace SistemaTarefas.Data.Map
 {
     public class TarefaMap : IEntityTypeConfiguration<TarefaModel>
     {

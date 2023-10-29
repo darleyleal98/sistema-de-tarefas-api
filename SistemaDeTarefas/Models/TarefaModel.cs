@@ -1,6 +1,6 @@
-﻿using SistemaDeTarefas.Enums;
+﻿using SistemaTarefas.Enums;
 
-namespace SistemaDeTarefas.Models
+namespace SistemaTarefas.Models
 {
     public class TarefaModel
     {

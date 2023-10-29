@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SistemaDeTarefas.Models;
+using SistemaTarefas.Models;
 
-namespace SistemaDeTarefas.Controllers
+namespace SistemaTarefas.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<List<UsuarioModel>> BuscarTodosOsUsuarios() 
+        public ActionResult<List<UsuarioModel>> BuscarTodosUsuarios() 
         {
             return Ok();
         }

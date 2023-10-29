@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using SistemaDeTarefas.Data;
-using SistemaDeTarefas.Repositorios.Interfaces;
+using SistemaTarefas.Data;
+using SistemaTarefas.Repositorios;
+using SistemaTarefas.Repositorios.Interfaces;
 
-namespace SistemaDeTarefas
+namespace SistemaTarefas
 {
     public class Program
     {
@@ -18,11 +19,11 @@ namespace SistemaDeTarefas
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddEntityFrameworkNpgsql()
-                .AddDbContext<SistemaDeTarefasDBContext>(
+                .AddDbContext<SistemaTarefasDBContext>(
                     options => options.UseNpgsql(builder.Configuration.GetConnectionString("DataBase"))
                 );
 
-            builder.Services.AddScoped<IUsuarioRepositorio, IUsuarioRepositorio>();
+            builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             var app = builder.Build();
 

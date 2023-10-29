@@ -1,4 +1,4 @@
-﻿namespace SistemaDeTarefas.Models
+﻿namespace SistemaTarefas.Models
 {
     public class UsuarioModel
     {

@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SistemaDeTarefas.Data;
-using SistemaDeTarefas.Models;
-using SistemaDeTarefas.Repositorios.Interfaces;
+using SistemaTarefas.Data;
+using SistemaTarefas.Models;
+using SistemaTarefas.Repositorios.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SistemaDeTarefas.Repositorios
+namespace SistemaTarefas.Repositorios
 {
     public class UsuarioRepositorio : IUsuarioRepositorio
     {
-        private readonly SistemaDeTarefasDBContext _dbContext;
-        public UsuarioRepositorio(SistemaDeTarefasDBContext sistemaDeTarefasDBContext)
+        private readonly SistemaTarefasDBContext _dbContext;
+        public UsuarioRepositorio(SistemaTarefasDBContext sistemaTarefasDBContext)
         {
-            _dbContext = sistemaDeTarefasDBContext;
+            _dbContext = sistemaTarefasDBContext;
         }
 
         public async Task<UsuarioModel> BuscarPorId(int id)
@@ -25,7 +25,7 @@ namespace SistemaDeTarefas.Repositorios
             return await _dbContext.Usuarios.ToListAsync();
         }
 
-        public async Task<UsuarioModel> AdicionarUsuario(UsuarioModel usuario)
+        public async Task<UsuarioModel> Adicionar(UsuarioModel usuario)
         {
             await _dbContext.Usuarios.AddAsync(usuario);
             await _dbContext.SaveChangesAsync();
